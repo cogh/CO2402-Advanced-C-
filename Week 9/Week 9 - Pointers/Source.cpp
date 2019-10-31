@@ -15,6 +15,10 @@ void cancel(int* param_int_pointer_1, int* param_int_pointer_2) {
 	*smaller_pointer = 0;
 }
 
+struct BankAccount {
+
+};
+
 
 int main() {
 	// Exercise 1
@@ -33,6 +37,8 @@ int main() {
 	cout << "Int pointer 1: " << *int_pointer_1 << endl;
 	cout << "Int pointer 2: " << *int_pointer_2 << endl;
 	cout << endl << endl;
+
+	// Exercise 3
 
 	// Stall
 	system("pause");
