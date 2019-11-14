@@ -4,28 +4,20 @@
 
 using namespace std;
 
-void call_by_reference(int* arg_data) 
-{
-
-}
-
-void call_by_copy(int& arg_data) 
-{
-
-}
-
-void call_using_reference_parameter(int arg_data) 
-{
-
-}
-
-void set_data() {
-
-}
-
 int main() 
 {
 	CTest* test_data;
-	set_data();
+
+	int i = 4;
+	test_data->call_by_copy(i);
+	cout << i << endl;
+
+	i = 4;
+	test_data->call_by_reference(&i);
+	cout << i << endl;
+
+	i = 4;
+	test_data->call_using_reference_parameter(i);
+	cout << i << endl;
 
 }
