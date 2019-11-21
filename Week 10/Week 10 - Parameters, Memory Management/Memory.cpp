@@ -1,18 +1,19 @@
-#include "Count.h"
+#include "Memory.h"
 
 
 
-Count::Count()
+Memory::Memory()
 {
 }
 
 
-Count::~Count()
+Memory::~Memory()
 {
 }
 
 void* Memory::Allocate(size_t size)
 {
+	int* i = (int*)myMemory.Allocate(sizeof(int));
 	count++;
 	return malloc(size);
 }

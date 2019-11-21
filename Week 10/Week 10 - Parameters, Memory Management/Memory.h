@@ -1,11 +1,11 @@
 #pragma once
 #include <Memory> 
 
-class Count
+class Memory
 {
 public:
-	Count();
-	~Count();
+	Memory();
+	~Memory();
 	int count;
 	void* Memory::Allocate(size_t size);
 
