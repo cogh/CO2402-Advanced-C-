@@ -21,4 +21,7 @@ int main()
 	test_data->call_using_reference_parameter(i);
 	cout << i << endl;
 
+	Memory my_memory;
+	int* i = (int*)my_memory.Allocate(sizeof(int));
+
 }
