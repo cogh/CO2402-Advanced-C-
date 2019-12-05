@@ -7,7 +7,8 @@ using namespace std;
 
 int main() 
 {
-	CTest* test_data;
+	CTest* test_data = new CTest;
+	test_data->set_data();
 
 	int i = 4;
 	test_data->call_by_copy(i);
@@ -21,7 +22,9 @@ int main()
 	test_data->call_using_reference_parameter(i);
 	cout << i << endl;
 
-	Memory my_memory;
-	int* i = (int*)my_memory.Allocate(sizeof(int));
+	//Memory my_memory;
+	//int* i = (int*)my_memory.Allocate(sizeof(int));
 
+	// Stall
+	system("pause");
 }
