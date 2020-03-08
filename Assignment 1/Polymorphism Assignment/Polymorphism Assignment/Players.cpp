@@ -73,6 +73,7 @@ void IPlayer::CreateDeck(shared_ptr<IPlayer> owner)
 			//	break;
 			case 5:
 				newCard = NewCard(VAMPIRE, &stringStream, owner);
+				mDeck.Add(newCard);
 				break;
 			/*case 6:
 				newCard = NewCard(WALL, &stringStream);

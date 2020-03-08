@@ -22,6 +22,8 @@ class Minion : public ICard
 {
 public:
 	shared_ptr<IEffect> mEffect;
+	void ChangeHealth(int amount);
+	int mHealth;
 };
 
 class BasicMinion : public Minion
@@ -29,7 +31,6 @@ class BasicMinion : public Minion
 public:
 	BasicMinion(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
-	void ChangeHealth(int amount);
 	int GetAttack()
 	{
 		return mAttack;
@@ -39,7 +40,6 @@ public:
 		return mHealth;
 	}
 private:
-	int mHealth;
 	int mAttack;
 };
 
@@ -48,9 +48,16 @@ class Vampire : public Minion
 public:
 	Vampire(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
+	int GetAttack()
+	{
+		return mAttack;
+	}
+	int GetHealth()
+	{
+		return mHealth;
+	}
 private:
-	string mHealth;
-	string mAttack;
+	int mAttack;
 };
 
 class Wall : public Minion
@@ -59,7 +66,6 @@ public:
 	Wall(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
-	string mHealth;
 	string mAttack;
 };
 
@@ -69,7 +75,6 @@ public:
 	Horde(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
-	string mHealth;
 	string mAttack;
 };
 
@@ -79,7 +84,6 @@ public:
 	Trample(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
-	string mHealth;
 	string mAttack;
 };
 
@@ -89,7 +93,6 @@ public:
 	Leech(istringstream* constructorStream, shared_ptr<IPlayer> owner);
 	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
-	string mHealth;
 	string mAttack;
 };
 

@@ -3,6 +3,12 @@
 
 //////////////////////////////////////////////////////////////// Minions
 
+// Superclass
+void Minion::ChangeHealth(int amount)
+{
+	mHealth += amount;
+}
+
 // Basic minion
 BasicMinion::BasicMinion(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
@@ -17,10 +23,6 @@ void BasicMinion::ActivateEffect(shared_ptr<ICard> callingCard)
 {
 	mEffect->Activate(callingCard);
 }
-void BasicMinion::ChangeHealth(int amount)
-{
-	mHealth += amount;
-}
 
 // Vampire
 Vampire::Vampire(istringstream* constructorStream, shared_ptr<IPlayer> owner)
@@ -30,6 +32,7 @@ Vampire::Vampire(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 	*constructorStream >> mName;
 	*constructorStream >> mAttack;
 	*constructorStream >> mHealth;
+	mEffect = make_shared<Drain>();
 }
 void Vampire::ActivateEffect(shared_ptr<ICard> callingCard)
 {

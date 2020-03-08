@@ -8,7 +8,7 @@ void AttackRandomEnemy::Activate(shared_ptr<ICard> callingCard)
 	{
 		auto targetCard = callingCard->mOwner->mOpponent->mField.GetRandom();
 		cout << callingCard->mName << " attacks " << targetCard->mName << ": ";
-		shared_ptr<BasicMinion> targetMinion = dynamic_pointer_cast<BasicMinion>(targetCard);
+		shared_ptr<Minion> targetMinion = dynamic_pointer_cast<Minion>(targetCard);
 		targetMinion->ChangeHealth(-callingCard->GetAttack());
 		if (targetMinion->GetHealth() > 0)
 		{
@@ -39,7 +39,7 @@ void AttackAllEnemies::Activate(shared_ptr<ICard> callingCard)
 		for (auto& targetCard : targetCardList)
 		{
 			cout << callingCard->mName << " attacks " << targetCard->mName << ": ";
-			shared_ptr<BasicMinion> targetMinion = dynamic_pointer_cast<BasicMinion>(targetCard);
+			shared_ptr<Minion> targetMinion = dynamic_pointer_cast<Minion>(targetCard);
 			targetMinion->ChangeHealth(-callingCard->GetAttack());
 			if (targetMinion->GetHealth() > 0)
 			{
@@ -84,9 +84,9 @@ void Drain::Activate(shared_ptr<ICard> callingCard)
 	{
 		auto targetCard = callingCard->mOwner->mOpponent->mField.GetRandom();
 		cout << callingCard->mName << " attacks " << targetCard->mName << ": ";
-		shared_ptr<BasicMinion> targetMinion = dynamic_pointer_cast<BasicMinion>(targetCard);
+		shared_ptr<Minion> targetMinion = dynamic_pointer_cast<Minion>(targetCard);
 		targetMinion->ChangeHealth(-callingCard->GetAttack());
-		shared_ptr<BasicMinion> callingMinion = dynamic_pointer_cast<BasicMinion>(callingCard);
+		shared_ptr<Minion> callingMinion = dynamic_pointer_cast<Minion>(callingCard);
 		callingMinion->ChangeHealth(1);
 		if (targetMinion->GetHealth() > 0)
 		{
