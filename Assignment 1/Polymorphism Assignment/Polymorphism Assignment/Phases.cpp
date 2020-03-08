@@ -5,7 +5,16 @@
 void DrawPhase::Run(shared_ptr<IPlayer> player)
 {
 	cout << player->mName << " draws ";
-	player->Draw();
+	if (player->mDeck.Size() <= 0)
+	{
+		cout << "Deck has been exhausted!" << endl;
+		string ignore;
+		cin >> ignore;
+	}
+	else
+	{
+		player->Draw();
+	}
 }
 
 void PlacePhase::Run(shared_ptr<IPlayer> player)
