@@ -6,10 +6,10 @@
 // Card factory
 shared_ptr<ICard> NewCard(ECardType cardType, istringstream* constructorStream);
 
+// Player factory
+shared_ptr<IPlayer> NewPlayer(EPlayerType playerType);
+
 //////////////////////////////////////////////////////////////// Random functions
 
 // Random integer
-int Random(const float n)
-{
-    return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX + 1) * (n + 1));
-}
+int Random(const float n);

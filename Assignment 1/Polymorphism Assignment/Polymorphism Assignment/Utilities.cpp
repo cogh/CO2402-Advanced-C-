@@ -1,8 +1,10 @@
 #include "Utilities.h"
 #include "Cards.h"
+#include "Players.h"
 
 //////////////////////////////////////////////////////////////// Factory functions
 
+// Card factory
 shared_ptr<ICard> NewCard(ECardType search, istringstream* constructorStream)
 {
     switch (search)
@@ -29,6 +31,18 @@ shared_ptr<ICard> NewCard(ECardType search, istringstream* constructorStream)
             return shared_ptr<ICard>(new Sword(constructorStream));
         case ARMOUR:
             return shared_ptr<ICard>(new Armour(constructorStream));
+    }
+}
+
+// Player factory
+shared_ptr<IPlayer> NewPlayer(EPlayerType playerType)
+{
+    switch (playerType)
+    {
+    case BASIC_MINION:
+        return shared_ptr<IPlayer>(new Sorceress());
+    case FIREBALL:
+        return shared_ptr<IPlayer>(new Wizard());
     }
 }
 

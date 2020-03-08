@@ -1,4 +1,5 @@
 #include "Effects.h"
+#include "Players.h"
 
 void AttackRandomEnemy::Activate(shared_ptr<IPlayer> owner, int attackAmount)
 {

@@ -1,17 +1,27 @@
 #pragma once
 #include "Definitions.h"
 
-class DrawPhase : public Phase
+//////////////////////////////////////////////////////////////// Interface
+
+class IPhase
 {
-	void Run(IPlayer* player);
+public:
+	virtual void Run(shared_ptr<IPlayer> player) = 0;
 };
 
-class PlacePhase : public Phase
+//////////////////////////////////////////////////////////////// Phases
+
+class DrawPhase : public IPhase
 {
-	void Run(IPlayer* player);
+	void Run(shared_ptr<IPlayer> player);
 };
 
-class AttackPhase : public Phase
+class PlacePhase : public IPhase
 {
-	void Run(IPlayer* player);
+	void Run(shared_ptr<IPlayer> player);
+};
+
+class AttackPhase : public IPhase
+{
+	void Run(shared_ptr<IPlayer> player);
 };

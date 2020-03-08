@@ -1,18 +1,18 @@
 #include "Game.h"
 #include "Utilities.h"
-#include "Players.h"
 #include "Phases.h"
+#include "Players.h"
 
 void Game::AddPlayer(string characterName)
 {
-	shared_ptr<Player> newPlayer;
+	shared_ptr<IPlayer> newPlayer;
 	if (characterName == "sorceress")
 	{
-		newPlayer = shared_ptr<Player>(new Sorceress());
+		newPlayer = NewPlayer(SORCERESS);
 	}
 	else if (characterName == "wizard")
 	{
-		newPlayer = shared_ptr<Player>(new Wizard());
+		newPlayer = NewPlayer(WIZARD);
 	}
 	newPlayer->CreateDeck();
 	playerList.push_back(newPlayer);
@@ -20,9 +20,9 @@ void Game::AddPlayer(string characterName)
 
 void Game::SetPhases()
 {
-	phaseList.emplace_back(new shared_ptr<DrawPhase>());
-	phaseList.emplace_back(new shared_ptr<PlacePhase>());
-	phaseList.emplace_back(new shared_ptr<AttackPhase>());
+	phaseList.push_back(shared_ptr<IPhase>(new DrawPhase()));
+	phaseList.push_back(shared_ptr<IPhase>(new PlacePhase()));
+	phaseList.push_back(shared_ptr<IPhase>(new AttackPhase()));
 }
 
 void Game::StartGame()
@@ -36,9 +36,15 @@ void Game::StartGame()
 
 void Game::Run()
 {
+	cout << "New round" << endl;
 	for (auto& player : playerList) {
+		cout << "New player turn" << endl;
 		for (auto& phase : phaseList) {
+			cout << "New phase" << endl;
 			phase->Run(player);
 		}
 	}
+	cout << "Round ended" << endl;
+	string ignore;
+	cin >> ignore;
 }

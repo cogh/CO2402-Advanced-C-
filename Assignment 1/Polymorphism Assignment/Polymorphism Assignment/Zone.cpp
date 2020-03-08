@@ -2,29 +2,34 @@
 #include "Utilities.h"
 
 // Zone
-class Zone {
-public:
-	void Shuffle()
-	{
-		//shuffle(cardList.begin(), cardList.end(), default_random_engine(seed));
-	}
-	void Draw(Zone zone)
-	{
-		cardList.push_back(zone.cardList.front());
-		zone.cardList.pop_front();
-	}
-	void Deal(Zone& zone)
-	{
-		zone.cardList.push_front(cardList.front());
-	}
-	shared_ptr<ICard> GetRandom()
-	{
-		return (cardList.at(Random(cardList.size())))
-	}
-	CardList GetAll()
-	{
+void Zone::Shuffle()
+{
+	//shuffle(cardList.begin(), cardList.end(), default_random_engine(seed));
+}
 
-	}
-private:
-	CardList cardList;
-};
+void Zone::Draw(Zone zone)
+{
+	cardList.push_back(zone.cardList.front());
+	zone.cardList.pop_front();
+}
+
+void Zone::Deal(Zone zone)
+{
+	zone.cardList.push_front(cardList.front());
+}
+
+void Zone::Add(shared_ptr<ICard> card)
+{
+	cardList.push_back(card);
+}
+
+shared_ptr<ICard> Zone::GetRandom()
+{
+	//return (cardList.at(Random(cardList.size())));
+	return (cardList.front());
+}
+
+CardList Zone::GetAll()
+{
+	return cardList;
+}
