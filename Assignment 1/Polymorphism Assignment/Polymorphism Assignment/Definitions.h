@@ -14,17 +14,17 @@ using namespace std;
 
 // Card types
 enum ECardType {
-	BASIC_MINION,
-	FIREBALL,
-	LIGHTNING,
-	BLESS,
-	VAMPIRE,
-	WALL,
-	HORDE,
-	TRAMPLE,
-	LEECH,
-	SWORD,
-	ARMOUR
+	BASIC_MINION = 1,
+	FIREBALL = 2,
+	LIGHTNING = 3,
+	BLESS = 4,
+	VAMPIRE = 5,
+	WALL = 6,
+	HORDE = 7,
+	TRAMPLE = 8,
+	LEECH = 9,
+	SWORD = 10,
+	ARMOUR = 11
 };
 
 // Player types

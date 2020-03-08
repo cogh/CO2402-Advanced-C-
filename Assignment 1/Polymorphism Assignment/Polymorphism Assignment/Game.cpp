@@ -14,7 +14,7 @@ void Game::AddPlayer(string characterName)
 	{
 		newPlayer = NewPlayer(WIZARD);
 	}
-	newPlayer->CreateDeck();
+	newPlayer->CreateDeck(newPlayer);
 	playerList.push_back(newPlayer);
 }
 
@@ -27,6 +27,7 @@ void Game::SetPhases()
 
 void Game::StartGame()
 {
+	roundNumber = 1;
 	playerIterator = playerList.begin();
 	phaseIterator = phaseList.begin();
 	playerList[0]->mOpponent = playerList[1];
@@ -36,15 +37,16 @@ void Game::StartGame()
 
 void Game::Run()
 {
-	cout << "New round" << endl;
+	cout << "Round " << roundNumber << endl;
+	roundNumber++;
 	for (auto& player : playerList) {
-		cout << "New player turn" << endl;
+		cout << player->mName << "'s turn" << endl;
 		for (auto& phase : phaseList) {
-			cout << "New phase" << endl;
+			//cout << "New phase" << endl;
 			phase->Run(player);
 		}
 	}
 	cout << "Round ended" << endl;
-	string ignore;
-	cin >> ignore;
+	//string ignore;
+	//cin >> ignore;
 }

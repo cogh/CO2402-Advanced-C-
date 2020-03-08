@@ -13,9 +13,12 @@ public:
 	Zone mField;
 	Zone mDeck;
 	string mName;
+	int mHealth;
 	void Draw();
 	void Place();
-	void CreateDeck();
+	void Destroy(shared_ptr<ICard> targetCard);
+	void CreateDeck(shared_ptr<IPlayer> owner);
+	void ChangeHealth(int amount);
 };
 
 //////////////////////////////////////////////////////////////// Player types

@@ -4,16 +4,18 @@
 //////////////////////////////////////////////////////////////// Minions
 
 // Basic minion
-BasicMinion::BasicMinion(istringstream* constructorStream)
+BasicMinion::BasicMinion(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
-	*constructorStream >> mHealth;
 	*constructorStream >> mAttack;
-	mEffect.reset(new AttackRandomEnemy());
+	*constructorStream >> mHealth;
+	mEffect = make_shared<AttackRandomEnemy>();
 }
-void BasicMinion::ActivateEffect()
+void BasicMinion::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 void BasicMinion::ChangeHealth(int amount)
 {
@@ -21,121 +23,141 @@ void BasicMinion::ChangeHealth(int amount)
 }
 
 // Vampire
-Vampire::Vampire(istringstream* constructorStream)
+Vampire::Vampire(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
-	*constructorStream >> mHealth;
 	*constructorStream >> mAttack;
+	*constructorStream >> mHealth;
 }
-void Vampire::ActivateEffect()
+void Vampire::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Wall
-Wall::Wall(istringstream* constructorStream)
+Wall::Wall(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
-	*constructorStream >> mHealth;
 	*constructorStream >> mAttack;
+	*constructorStream >> mHealth;
 }
-void Wall::ActivateEffect()
+void Wall::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Horde
-Horde::Horde(istringstream* constructorStream)
+Horde::Horde(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
-	*constructorStream >> mHealth;
 	*constructorStream >> mAttack;
+	*constructorStream >> mHealth;
 }
-void Horde::ActivateEffect()
+void Horde::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Trample
-Trample::Trample(istringstream* constructorStream)
+Trample::Trample(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
-	*constructorStream >> mHealth;
 	*constructorStream >> mAttack;
+	*constructorStream >> mHealth;
 }
-void Trample::ActivateEffect()
+void Trample::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Leech
-Leech::Leech(istringstream* constructorStream)
+Leech::Leech(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 	*constructorStream >> mAttack;
 	*constructorStream >> mHealth;
 }
-void Leech::ActivateEffect()
+void Leech::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 //////////////////////////////////////////////////////////////// Spells
 
 // Fireball
-Fireball::Fireball(istringstream* constructorStream)
+Fireball::Fireball(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 	*constructorStream >> mAttack;
-	mEffect.reset(new AttackRandomEnemy());
+	mEffect = make_shared<AttackRandomEnemy>();
 }
-void Fireball::ActivateEffect()
+void Fireball::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Lightning
-Lightning::Lightning(istringstream* constructorStream)
+Lightning::Lightning(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 	*constructorStream >> mAttack;
-	mEffect.reset(new AttackAllEnemies());
+	mEffect = make_shared<AttackAllEnemies>();
 }
-void Lightning::ActivateEffect()
+void Lightning::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Bless
-Bless::Bless(istringstream* constructorStream)
+Bless::Bless(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 	*constructorStream >> mHeal;
-	mEffect.reset(new HealRandomTarget());
+	mEffect = shared_ptr<HealRandomTarget>();
 }
-void Bless::ActivateEffect()
+void Bless::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 //////////////////////////////////////////////////////////////// Equipment
 
 // Sword
-Sword::Sword(istringstream* constructorStream)
+Sword::Sword(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 }
-void Sword::ActivateEffect()
+void Sword::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }
 
 // Armour
-Armour::Armour(istringstream* constructorStream)
+Armour::Armour(istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
+	mOwner = owner;
+	*constructorStream >> mType;
 	*constructorStream >> mName;
 }
-void Armour::ActivateEffect()
+void Armour::ActivateEffect(shared_ptr<ICard> callingCard)
 {
-	mEffect->Activate();
+	mEffect->Activate(callingCard);
 }

@@ -4,6 +4,7 @@
 class Game
 {
 public:
+	int roundNumber;
 	bool mRun;
 	PlayerList playerList;
 	PhaseList phaseList;

@@ -8,7 +8,8 @@
 class IEffect
 {
 public:
-	virtual void Activate() {}
+	virtual ~IEffect() = default;
+	virtual void Activate(shared_ptr<ICard> callingCard) = 0;
 };
  
 //////////////////////////////////////////////////////////////// Effects
@@ -16,23 +17,29 @@ public:
 class AttackRandomEnemy : public IEffect
 {
 public:
-	void Activate(shared_ptr<IPlayer> owner, int attackAmount);
+	void Activate(shared_ptr<ICard> callingCard);
 };
 
 class AttackAllEnemies : public IEffect
 {
 public:
-	void Activate(shared_ptr<IPlayer> owner, int attackAmount);
+	void Activate(shared_ptr<ICard> callingCard);
+};
+
+class AttackDirectly : public IEffect
+{
+public:
+	void Activate(shared_ptr<ICard> callingCard);
 };
 
 class HealRandomTarget : public IEffect
 {
 public:
-	void Activate(shared_ptr<IPlayer> owner, int healAmount);
+	void Activate(shared_ptr<ICard> callingCard);
 };
 
 class Drain : public IEffect
 {
 public:
-	void Activate(shared_ptr<IPlayer> owner, int drainAmount);
+	void Activate(shared_ptr<ICard> callingCard);
 };

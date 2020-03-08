@@ -21,13 +21,12 @@ int main()
 
 	// Start game
 	game.StartGame();
-	cout << "Game started" << endl;
+	cout << "Game started" << endl << endl;
 
 	// Run game
 	while (game.mRun == true)
 	{
 		game.Run();
-		cout << "Game running" << endl;
 	}
 }
 

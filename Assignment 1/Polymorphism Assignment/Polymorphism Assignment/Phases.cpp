@@ -4,19 +4,39 @@
 
 void DrawPhase::Run(shared_ptr<IPlayer> player)
 {
+	cout << player->mName << " draws ";
 	player->Draw();
-	cout << "Player draws" << endl;
 }
 
 void PlacePhase::Run(shared_ptr<IPlayer> player)
 {
+	// Place card
+	cout << player->mName;
 	player->Place();
-	cout << "Player places" << endl;
+	// Display cards on table
+	cout << "Cards on table: ";
+	for (auto& card : player->mField.GetAll())
+	{
+		cout << card->mName << "(hp:" << card->GetHealth() << ", atk:" << card->GetAttack() << "), ";
+	}
+	for (auto& card : player->mOpponent->mField.GetAll())
+	{
+		cout << card->mName << "(hp:" << card->GetHealth() << ", atk:" << card->GetAttack() << "), ";
+	}
+	cout << endl;
 }
 
 void AttackPhase::Run(shared_ptr<IPlayer> player)
 {
-	shared_ptr<ICard> card = player->mField.GetRandom();
-	card->ActivateEffect();
-	cout << "Player attacks" << endl;
+	// Activate random card
+	if (player->mField.Size() > 0)
+	{
+		shared_ptr<ICard> card = player->mField.GetRandom();
+		card->ActivateEffect(card);
+	}
+	else
+	{
+		cout << "No cards on field to attack with" << endl;
+	}
+	cout << endl;
 }

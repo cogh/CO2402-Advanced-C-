@@ -5,32 +5,32 @@
 //////////////////////////////////////////////////////////////// Factory functions
 
 // Card factory
-shared_ptr<ICard> NewCard(ECardType search, istringstream* constructorStream)
+shared_ptr<ICard> NewCard(ECardType cardType, istringstream* constructorStream, shared_ptr<IPlayer> owner)
 {
-    switch (search)
+    switch (cardType)
     {
         case BASIC_MINION:
-            return shared_ptr<ICard>(new BasicMinion(constructorStream));
+            return make_shared<BasicMinion>(constructorStream, owner);
         case FIREBALL:
-            return shared_ptr<ICard>(new Fireball(constructorStream));
+            return make_shared<Fireball>(constructorStream, owner);
         case LIGHTNING:
-            return shared_ptr<ICard>(new Lightning(constructorStream));
+            return make_shared<Lightning>(constructorStream, owner);
         case BLESS:
-            return shared_ptr<ICard>(new Bless(constructorStream));
+            return make_shared<Bless>(constructorStream, owner);
         case VAMPIRE:
-            return shared_ptr<ICard>(new Vampire(constructorStream));
+            return make_shared<Vampire>(constructorStream, owner);
         case WALL:
-            return shared_ptr<ICard>(new Wall(constructorStream));
+            return make_shared<Wall>(constructorStream, owner);
         case HORDE:
-            return shared_ptr<ICard>(new Horde(constructorStream));
+            return make_shared<Horde>(constructorStream, owner);
         case TRAMPLE:
-            return shared_ptr<ICard>(new Trample(constructorStream));
+            return make_shared<Trample>(constructorStream, owner);
         case LEECH:
-            return shared_ptr<ICard>(new Leech(constructorStream));
+            return make_shared<Leech>(constructorStream, owner);
         case SWORD:
-            return shared_ptr<ICard>(new Sword(constructorStream));
+            return make_shared<Sword>(constructorStream, owner);
         case ARMOUR:
-            return shared_ptr<ICard>(new Armour(constructorStream));
+            return make_shared<Armour>(constructorStream, owner);
     }
 }
 
@@ -39,10 +39,10 @@ shared_ptr<IPlayer> NewPlayer(EPlayerType playerType)
 {
     switch (playerType)
     {
-    case BASIC_MINION:
-        return shared_ptr<IPlayer>(new Sorceress());
-    case FIREBALL:
-        return shared_ptr<IPlayer>(new Wizard());
+    case SORCERESS:
+        return make_shared<Sorceress>();
+    case WIZARD:
+        return make_shared<Wizard>();
     }
 }
 

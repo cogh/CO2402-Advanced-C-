@@ -8,9 +8,12 @@ class ICard
 {
 public:
 	virtual ~ICard() = default;
-	virtual void ActivateEffect() = 0;
-protected:
+	virtual void ActivateEffect(shared_ptr<ICard> callingCard) = 0;
+	virtual int GetAttack() { return 0; }
+	virtual int GetHealth() { return 0; }
 	string mName;
+	int mType;
+	shared_ptr<IPlayer> mOwner;
 };
 
 //////////////////////////////////////////////////////////////// Minions
@@ -19,25 +22,32 @@ class Minion : public ICard
 {
 public:
 	shared_ptr<IEffect> mEffect;
-	string mName;
 };
 
 class BasicMinion : public Minion
 {
 public:
-	BasicMinion(istringstream* constructorStream);
-	void ActivateEffect();
+	BasicMinion(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 	void ChangeHealth(int amount);
+	int GetAttack()
+	{
+		return mAttack;
+	}
+	int GetHealth()
+	{
+		return mHealth;
+	}
 private:
-	string mHealth;
-	string mAttack;
+	int mHealth;
+	int mAttack;
 };
 
 class Vampire : public Minion
 {
 public:
-	Vampire(istringstream* constructorStream);
-	void ActivateEffect();
+	Vampire(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	string mHealth;
 	string mAttack;
@@ -46,8 +56,8 @@ private:
 class Wall : public Minion
 {
 public:
-	Wall(istringstream* constructorStream);
-	void ActivateEffect();
+	Wall(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	string mHealth;
 	string mAttack;
@@ -56,8 +66,8 @@ private:
 class Horde : public Minion
 {
 public:
-	Horde(istringstream* constructorStream);
-	void ActivateEffect();
+	Horde(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	string mHealth;
 	string mAttack;
@@ -66,8 +76,8 @@ private:
 class Trample : public Minion
 {
 public:
-	Trample(istringstream* constructorStream);
-	void ActivateEffect();
+	Trample(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	string mHealth;
 	string mAttack;
@@ -76,8 +86,8 @@ private:
 class Leech : public Minion
 {
 public:
-	Leech(istringstream* constructorStream);
-	void ActivateEffect();
+	Leech(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	string mHealth;
 	string mAttack;
@@ -88,15 +98,14 @@ private:
 class Spell : public ICard
 {
 public:
-	string mName;
 	shared_ptr<IEffect> mEffect;
 };
 
 class Fireball : public Spell
 {
 public:
-	Fireball(istringstream* constructorStream);
-	void ActivateEffect();
+	Fireball(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	int mAttack;
 };
@@ -104,8 +113,8 @@ private:
 class Lightning : public Spell
 {
 public:
-	Lightning(istringstream* constructorStream);
-	void ActivateEffect();
+	Lightning(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	int mAttack;
 };
@@ -113,8 +122,8 @@ private:
 class Bless : public Spell
 {
 public:
-	Bless(istringstream* constructorStream);
-	void ActivateEffect();
+	Bless(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 private:
 	int mHeal;
 };
@@ -124,22 +133,21 @@ private:
 class Equipment : public ICard
 {
 public:
-	string mName;
 	shared_ptr<IEffect> mEffect;
 };
 
 class Sword : public Equipment
 {
 public:
-	Sword(istringstream* constructorStream);
-	void ActivateEffect();
+	Sword(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 };
 
 class Armour : public Equipment
 {
 public:
-	Armour(istringstream* constructorStream);
-	void ActivateEffect();
+	Armour(istringstream* constructorStream, shared_ptr<IPlayer> owner);
+	void ActivateEffect(shared_ptr<ICard> callingCard);
 };
 
 //////////////////////////////////////////////////////////////// Player card
