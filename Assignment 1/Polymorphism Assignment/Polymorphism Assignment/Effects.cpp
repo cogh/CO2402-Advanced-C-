@@ -34,6 +34,7 @@ void AttackAllEnemies::Activate(shared_ptr<ICard> callingCard)
 	auto targetField = callingCard->mOwner->mOpponent->mField;
 	if (targetField.Size() > 0)
 	{
+		CardList cardsToKill;
 		CardList targetCardList = callingCard->mOwner->mOpponent->mField.GetAll();
 		for (auto& targetCard : targetCardList)
 		{
@@ -44,11 +45,16 @@ void AttackAllEnemies::Activate(shared_ptr<ICard> callingCard)
 			{
 				cout << targetMinion->mName << " now " << targetMinion->GetHealth() << endl;
 			}
-			else // Kill enemy
+			else // Remember enemy to destroy
 			{
 				cout << targetMinion->mName << " killed " << endl;
-				targetMinion->mOwner->Destroy(targetCard);
+				cardsToKill.push_back(targetCard);
 			}
+		}
+		// Destroy dead cards
+		for (auto& targetCard : cardsToKill)
+		{
+			targetCard->mOwner->Destroy(targetCard);
 		}
 	}
 	else
@@ -73,5 +79,29 @@ void HealRandomTarget::Activate(shared_ptr<ICard> callingCard)
 
 void Drain::Activate(shared_ptr<ICard> callingCard)
 {
-
+	auto targetField = callingCard->mOwner->mOpponent->mField;
+	if (targetField.Size() > 0)
+	{
+		auto targetCard = callingCard->mOwner->mOpponent->mField.GetRandom();
+		cout << callingCard->mName << " attacks " << targetCard->mName << ": ";
+		shared_ptr<BasicMinion> targetMinion = dynamic_pointer_cast<BasicMinion>(targetCard);
+		targetMinion->ChangeHealth(-callingCard->GetAttack());
+		shared_ptr<BasicMinion> callingMinion = dynamic_pointer_cast<BasicMinion>(callingCard);
+		callingMinion->ChangeHealth(1);
+		if (targetMinion->GetHealth() > 0)
+		{
+			cout << targetMinion->mName << " now " << targetMinion->GetHealth() << endl;
+		}
+		else // Kill enemy
+		{
+			cout << targetMinion->mName << " killed " << endl;
+			targetMinion->mOwner->Destroy(targetCard);
+		}
+	}
+	else
+	{
+		cout << callingCard->mName << " attacks " << callingCard->mOwner->mOpponent->mName << ": ";
+		callingCard->mOwner->mOpponent->ChangeHealth(-callingCard->GetAttack());
+		cout << callingCard->mOwner->mOpponent->mName << " now " << callingCard->mOwner->mOpponent->mHealth << endl;
+	}
 }

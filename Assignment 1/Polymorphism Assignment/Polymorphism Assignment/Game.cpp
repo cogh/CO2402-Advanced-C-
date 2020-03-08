@@ -2,6 +2,7 @@
 #include "Utilities.h"
 #include "Phases.h"
 #include "Players.h"
+#include "Cards.h"
 
 void Game::AddPlayer(string characterName)
 {
@@ -32,6 +33,10 @@ void Game::StartGame()
 	phaseIterator = phaseList.begin();
 	playerList[0]->mOpponent = playerList[1];
 	playerList[1]->mOpponent = playerList[0];
+	playerList[0]->Draw();
+	playerList[1]->Draw();
+	cout << playerList[0]->mName << " starts with " << playerList[0]->mHand.GetRandom()->mName << endl;
+	cout << playerList[1]->mName << " starts with " << playerList[1]->mHand.GetRandom()->mName << endl;
 	mRun = true;
 }
 

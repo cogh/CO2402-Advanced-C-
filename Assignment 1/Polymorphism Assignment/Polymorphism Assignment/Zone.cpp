@@ -45,10 +45,16 @@ void Zone::Destroy(shared_ptr<ICard> targetCard)
 	}
 }
 
+shared_ptr<ICard> Zone::GetFront()
+{
+	return cardList.front();
+}
+
 shared_ptr<ICard> Zone::GetRandom()
 {
-	//return (cardList.at(Random(cardList.size())));
-	return (cardList.front());
+	int index = Random(cardList.size()-1);
+	shared_ptr<ICard> card = cardList.at(index);
+	return card;
 }
 
 CardList Zone::GetAll()

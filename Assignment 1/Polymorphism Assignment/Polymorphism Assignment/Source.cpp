@@ -12,8 +12,8 @@ int main()
 	cout << "Game created" << endl;
 
 	// Add players
-	game.AddPlayer("wizard");
 	game.AddPlayer("sorceress");
+	game.AddPlayer("wizard");
 	cout << "Players added" << endl;
 
 	// Set phases

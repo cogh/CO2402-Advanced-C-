@@ -6,25 +6,29 @@
 
 void IPlayer::Draw()
 {
+	shared_ptr<ICard> cardToDraw = mDeck.GetFront();
 	mHand.Draw(mDeck);
+	// Use spells immediately
+	if (cardToDraw->mType == FIREBALL || cardToDraw->mType == LIGHTNING)
+	{
+		cout << " activates ";
+		cardToDraw->ActivateEffect(cardToDraw);
+		mHand.Destroy(cardToDraw);
+	}
 }
 
 void IPlayer::Place()
 {
-	// Get card
-	shared_ptr<ICard> cardToPlace = mHand.GetRandom();
-	// Play minions
-	if (cardToPlace->mType == BASIC_MINION)
+	if (mHand.Size() > 0)
 	{
+		// Get card
+		shared_ptr<ICard> cardToPlace = mHand.GetRandom();
 		cout << " places ";
 		mHand.Deal(mField);
 	}
-	// Use spells immediately
-	else if (cardToPlace->mType == FIREBALL || cardToPlace->mType == LIGHTNING)
+	else
 	{
-		cout << " activates ";
-		cardToPlace->ActivateEffect(cardToPlace);
-		mHand.Destroy(cardToPlace);
+		cout << "No cards in hand to play!";
 	}
 }
 
@@ -64,13 +68,13 @@ void IPlayer::CreateDeck(shared_ptr<IPlayer> owner)
 				newCard = NewCard(LIGHTNING, &stringStream, owner);
 				mDeck.Add(newCard);
 				break;
-			/*case 4:
-				newCard = NewCard(BLESS, &stringStream);
-				break;
+			//case 4:
+			//	newCard = NewCard(BLESS, &stringStream);
+			//	break;
 			case 5:
-				newCard = NewCard(VAMPIRE, &stringStream);
+				newCard = NewCard(VAMPIRE, &stringStream, owner);
 				break;
-			case 6:
+			/*case 6:
 				newCard = NewCard(WALL, &stringStream);
 				break;
 			case 7:
